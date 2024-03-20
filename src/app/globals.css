@@ -1,11 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --cell-radius: 8px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -29,5 +28,77 @@ body {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+.row {
+  margin-top: 1rem;
+  gap: 1rem;
+  display: grid;
+  grid-template:
+    auto /
+    repeat(12, 1fr);
+}
+.cell {
+  border-radius: var(--cell-radius);
+  width: 80px;
+  height: 80px;
+  background: red;
+  &::after {
+    content: attr(data-key);
+  }
+  &::after {
+    content: attr(data-key);
+  }
+}
+
+.thumbs {
+  margin-left: auto;
+  width: 80%;
+  margin-right: auto;
+  margin-top: 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .cell {
+    background: blue;
+    color: white;
+  }
+
+  .left {
+    rotate: 25deg;
+  }
+  .right {
+    rotate: -25deg;
+  }
+
+  .left,
+  .right {
+    display: grid;
+
+    gap: 0.5rem;
+    grid-template:
+      "empty top1 top2" 80px
+      "big1 big2 small1" 80px
+      "big1 big2 small2" 100px / 80px 80px 80px;
+  }
+  .top1 {
+    grid-area: top1;
+  }
+  .top2 {
+    grid-area: top2;
+  }
+  .big1 {
+    grid-area: big1;
+  }
+  .big2 {
+    grid-area: big2;
+  }
+
+  .small1 {
+    grid-area: small1;
+  }
+  .small2 {
+    grid-area: small2;
   }
 }
