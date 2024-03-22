@@ -1,9 +1,21 @@
 import { db } from "@/lib/Database";
 import { keys } from "@/schema";
+import { desc, sql } from "drizzle-orm";
+import { sqliteView } from "drizzle-orm/sqlite-core";
 import Image from "next/image";
 
 export default async function Home() {
-  const result = await db.select().from(keys);
+  const frequencies = db
+    .select({
+      key_code: keys.key_code,
+      count: sql<number>`count(*)`,
+      frequency: sql<number>`count(*) * 1.0 / (SELECT count(*) FROM key_log)`,
+    })
+    .from(keys)
+    .groupBy(keys.key_code)
+    .orderBy(({ count }) => desc(count));
+  console.log(await frequencies);
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <article className="">

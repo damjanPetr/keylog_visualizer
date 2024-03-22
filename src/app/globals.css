@@ -53,10 +53,9 @@ body {
 }
 
 .thumbs {
-  margin-left: auto;
   width: 80%;
-  margin-right: auto;
-  margin-top: 4rem;
+  margin: 4rem auto 0;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -90,9 +89,11 @@ body {
   }
   .big1 {
     grid-area: big1;
+    height: 100%;
   }
   .big2 {
     grid-area: big2;
+    height: 100%;
   }
 
   .small1 {
