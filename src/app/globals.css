@@ -43,10 +43,6 @@ body {
   border-radius: var(--cell-radius);
   width: 80px;
   height: 80px;
-  background: red;
-  &::after {
-    content: attr(data-key);
-  }
   &::after {
     content: attr(data-key);
   }
@@ -60,7 +56,6 @@ body {
   justify-content: space-between;
   align-items: center;
   .cell {
-    background: blue;
     color: white;
   }
 
@@ -71,8 +66,7 @@ body {
     rotate: -25deg;
   }
 
-  .left,
-  .right {
+  .left {
     display: grid;
 
     gap: 0.5rem;
@@ -80,26 +74,56 @@ body {
       "empty top1 top2" 80px
       "big1 big2 small1" 80px
       "big1 big2 small2" 100px / 80px 80px 80px;
-  }
-  .top1 {
-    grid-area: top1;
-  }
-  .top2 {
-    grid-area: top2;
-  }
-  .big1 {
-    grid-area: big1;
-    height: 100%;
-  }
-  .big2 {
-    grid-area: big2;
-    height: 100%;
-  }
+    .top1 {
+      grid-area: top1;
+    }
+    .top2 {
+      grid-area: top2;
+    }
+    .big1 {
+      grid-area: big1;
+      height: 100%;
+    }
+    .big2 {
+      grid-area: big2;
+      height: 100%;
+    }
 
-  .small1 {
-    grid-area: small1;
+    .small1 {
+      grid-area: small1;
+    }
+    .small2 {
+      grid-area: small2;
+    }
   }
-  .small2 {
-    grid-area: small2;
+  .right {
+    display: grid;
+
+    gap: 0.5rem;
+    grid-template:
+      "top2 top1 empty" 80px
+      "small1 big2  big1" 80px
+      "small2 big2  big1" 100px / 80px 80px 80px;
+    .top1 {
+      grid-area: top1;
+    }
+    .top2 {
+      grid-area: top2;
+    }
+    .big1 {
+      grid-area: big1;
+      height: 100%;
+    }
+    .big2 {
+      grid-area: big2;
+      height: 100%;
+    }
+
+    .small1 {
+      grid-area: small1;
+    }
+    .small2 {
+      grid-area: small2;
+    }
   }
 }
