@@ -1,129 +1,155 @@
 @import "tailwindcss";
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-  --cell-radius: 8px;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+    --cell-radius: 8px;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+    :root {
+        --foreground-rgb: 255, 255, 255;
+        --background-start-rgb: 0, 0, 0;
+        --background-end-rgb: 0, 0, 0;
+    }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(to bottom,
+            transparent,
+            rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+    .text-balance {
+        text-wrap: balance;
+    }
 }
 
 .row {
-  margin-top: 1rem;
-  gap: 1rem;
-  display: grid;
-  grid-template:
-    auto /
-    repeat(12, 1fr);
+    margin-top: 1rem;
+    gap: 1rem;
+    display: grid;
+    grid-template:
+        auto /
+        repeat(12, 1fr);
 }
+
 .cell {
-  border-radius: var(--cell-radius);
-  width: 80px;
-  height: 80px;
-  &::after {
-    content: attr(data-key);
-  }
+    font-size: 1.5rem;
+    border-radius: var(--cell-radius);
+    width: 140px;
+    height: 140px;
+    background: beige;
+
+    &::after {
+        content: attr(data-key);
+    }
+
+    position: relative;
+
+    &::after {
+        content: attr(data-key);
+        position: absolute;
+        font-size: 2rem;
+        top: 20%;
+        left: 0;
+        width: 100%;
+        height: 50%;
+    }
 }
 
 .thumbs {
-  width: 80%;
-  margin: 4rem auto 0;
+    width: 80%;
+    margin: 8rem auto 0;
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  .cell {
-    color: white;
-  }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-  .left {
-    rotate: 25deg;
-  }
-  .right {
-    rotate: -25deg;
-  }
-
-  .left {
-    display: grid;
-
-    gap: 0.5rem;
-    grid-template:
-      "empty top1 top2" 80px
-      "big1 big2 small1" 80px
-      "big1 big2 small2" 100px / 80px 80px 80px;
-    .top1 {
-      grid-area: top1;
-    }
-    .top2 {
-      grid-area: top2;
-    }
-    .big1 {
-      grid-area: big1;
-      height: 100%;
-    }
-    .big2 {
-      grid-area: big2;
-      height: 100%;
+    .cell {
+        color: blue;
     }
 
-    .small1 {
-      grid-area: small1;
-    }
-    .small2 {
-      grid-area: small2;
-    }
-  }
-  .right {
-    display: grid;
-
-    gap: 0.5rem;
-    grid-template:
-      "top2 top1 empty" 80px
-      "small1 big2  big1" 80px
-      "small2 big2  big1" 100px / 80px 80px 80px;
-    .top1 {
-      grid-area: top1;
-    }
-    .top2 {
-      grid-area: top2;
-    }
-    .big1 {
-      grid-area: big1;
-      height: 100%;
-    }
-    .big2 {
-      grid-area: big2;
-      height: 100%;
+    .left {
+        rotate: 25deg;
     }
 
-    .small1 {
-      grid-area: small1;
+    .right {
+        rotate: -25deg;
     }
-    .small2 {
-      grid-area: small2;
+
+    .left,
+    .right {
+        gap: 4rem;
+        display: grid;
     }
-  }
+
+    .left {
+        grid-template:
+            "empty top1 top2" 100px
+            "big1 big2 small1" 100px
+            "big1 big2 small2" 120px / 100px 100px 100px;
+
+        .top1 {
+            grid-area: top1;
+        }
+
+        .top2 {
+            grid-area: top2;
+        }
+
+        .big1 {
+            grid-area: big1;
+            height: 100%;
+        }
+
+        .big2 {
+            grid-area: big2;
+            height: 100%;
+        }
+
+        .small1 {
+            grid-area: small1;
+        }
+
+        .small2 {
+            grid-area: small2;
+        }
+    }
+
+    .right {
+        grid-template:
+            "top2 top1 empty" 100px
+            "small1 big2  big1" 100px
+            "small2 big2  big1" 120px / 100px 100px 100px;
+
+        .top1 {
+            grid-area: top1;
+        }
+
+        .top2 {
+            grid-area: top2;
+        }
+
+        .big1 {
+            grid-area: big1;
+            height: 100%;
+        }
+
+        .big2 {
+            grid-area: big2;
+            height: 100%;
+        }
+
+        .small1 {
+            grid-area: small1;
+        }
+
+        .small2 {
+            grid-area: small2;
+        }
+    }
 }

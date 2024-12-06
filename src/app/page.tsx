@@ -1,8 +1,4 @@
 "use client";
-import { db } from "@/lib/Database";
-import { keys } from "@/schema";
-import { desc, sql } from "drizzle-orm";
-import { sqliteView } from "drizzle-orm/sqlite-core";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -10,6 +6,7 @@ export default function Home() {
   const [keys, setKeys] = useState<{
     [key: string]: { count: number; frequency: number; key_code: string };
   } | null>(null);
+
 
   useEffect(() => {
     async function fetchData() {
@@ -21,6 +18,25 @@ export default function Home() {
 
     fetchData();
   }, []);
+
+  function getTotalFromValue(value: string) {
+    const totalWin = Object.values(keys || {}).reduce(
+      (acc, { key_code, count }) => {
+        if (key_code.includes(value)) {
+          return acc + count;
+        }
+        return acc;
+      },
+      0
+    );
+
+    return totalWin;
+  }
+
+  const totalCtrl = getTotalFromValue("<ctrl>");
+  const totalWin = getTotalFromValue("<cmd>");
+  const totalShift = getTotalFromValue("<shift>");
+  const totalAlt = getTotalFromValue("<alt>");
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -88,12 +104,12 @@ export default function Home() {
             </div>
             <div className="cell" data-key="f">
               {keys && keys["f"].count}
-            </div>
-            <div className="cell" data-key="g">
-              {keys && keys["g"].count}
-            </div>
-            <div className="cell" data-key="c">
-              {keys && keys["c"].count}
+              {/* </div> */}
+              {/* <div className="cell" data-key="g"> */}
+              {/* {keys && keys["g"].count} */}
+              {/* </div> */}
+              {/* <div className="cell" data-key="c"> */}
+              {/* {keys && keys["c"].count} */}
             </div>
             <div className="cell" data-key="r">
               {keys && keys["r"].count}
@@ -187,9 +203,11 @@ export default function Home() {
           <div className="thumbs">
             <div className="left">
               <div className="cell top1" data-key="win">
-                {/* {keys && keys["win"].count} */}
+                {keys && totalWin}
               </div>
-              <div className="cell top2" data-key="ctrl"></div>
+              <div className="cell top2" data-key="ctrl">
+                {keys && totalCtrl}
+              </div>
               <div className="cell big1" data-key="esc">
                 {keys && keys["<esc>"].count}
               </div>
@@ -200,15 +218,16 @@ export default function Home() {
                 {/* {keys && keys["<alt>"].count} */}
               </div>
               <div className="cell small2" data-key="lshift">
-                {/* {keys && keys["lshift"].count} */}
+                {keys && totalShift}
               </div>
             </div>
 
             <div className="right">
-              <div className="cell top1" data-key="alt">
-                {/* {keys && keys["alt"].count} */}
+              <div className="cell top2" data-key="alt">
+                {keys && totalAlt}
               </div>
-              <div className="cell top2" data-key="tab">
+
+              <div className="cell top1" data-key="tab">
                 {keys && keys["<tab>"].count}
               </div>
               <div className="cell big1" data-key="space">
